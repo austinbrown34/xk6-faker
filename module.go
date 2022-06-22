@@ -1,6 +1,6 @@
 // MIT License
 //
-// Copyright (c) 2021 Iván Szkiba
+// Copyright (c) 2021 Iván austinbrown34
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -40,6 +40,7 @@ func init() {
 }
 
 type Module struct {
+	vu modules.VU
 	*Faker
 }
 
@@ -48,7 +49,8 @@ func New() *Module {
 }
 
 func (m *Module) XFaker(ctxPtr *context.Context, seed int64) (interface{}, error) {
-	rt := common.GetRuntime(*ctxPtr)
+	// rt := common.GetRuntime(*ctxPtr)
+	rt := m.vu.Runtime()
 
 	faker := newFaker(seed)
 

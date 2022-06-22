@@ -7,9 +7,11 @@ import (
 	"github.com/dop251/goja"
 	"go.k6.io/k6/js/common"
 	"lukechampine.com/frand"
+	"go.k6.io/k6/js/modules"
 )
 
 type Faker struct {
+	vu modules.VU
 	*gofakeit.Faker
 }
 
@@ -56,9 +58,11 @@ func (f *Faker) RgbColor() []int {
 }
 
 func (f *Faker) ImageJpeg(ctx context.Context, width int, height int) goja.ArrayBuffer {
-	return common.GetRuntime(ctx).NewArrayBuffer(f.Faker.ImageJpeg(width, height))
+	return f.vu.Runtime().NewArrayBuffer(f.Faker.ImageJpeg(width, height))
+	// return common.GetRuntime(ctx).NewArrayBuffer(f.Faker.ImageJpeg(width, height))
 }
 
 func (f *Faker) ImagePng(ctx context.Context, width int, height int) goja.ArrayBuffer {
-	return common.GetRuntime(ctx).NewArrayBuffer(f.Faker.ImagePng(width, height))
+	return f.vu.Runtime().NewArrayBuffer(f.Faker.ImagePng(width, height))
+	// return common.GetRuntime(ctx).NewArrayBuffer(f.Faker.ImagePng(width, height))
 }
